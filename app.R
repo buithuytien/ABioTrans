@@ -483,7 +483,6 @@ ui <- tagList(
                          fileInput("file2", "Choose Normalized Expression")
                          # helpText("* Format requirement: CSV file. Gene names in rows and genotypes in columns, following the usual format of files deposited in the GEO database.")
                        ),
-                       
                        withTags({
                          div(class = "header",
                              p("Example ", a("here", href = "https://github.com/buithuytien/GeneCloudOmics/blob/master/Test%20data/Eg_metadata.png")), # ADD EXAMPLE
@@ -491,6 +490,8 @@ ui <- tagList(
                        }),
                        fileInput("metafile1", "Choose Meta Data File"),
                        actionButton("submit_input", "Submit")
+                       
+                       
                      ),
                      mainPanel(
                        # h3("Welcome to GeneCloudOmics --"),
@@ -621,6 +622,7 @@ ui <- tagList(
                    )
                  )
                )
+               
     ),
     navbarMenu('Transcriptome Analysis',
                tabPanel(
@@ -1219,12 +1221,13 @@ ui <- tagList(
         tags$head(tags$style("#path_enri_visu{height:95vh !important;}")),
         sidebarLayout(
           sidebarPanel(
-            withTags({
-              div(class = "header",
-                  p("Example ", a("here", href = "https://github.com/buithuytien/GeneCloudOmics/blob/online-version/Test%20data/gPro_gene_names.csv")),
-              )
-            }),
+              withTags({
+                div(class = "header",
+                    p("Example ", a("here", href = "https://github.com/buithuytien/GeneCloudOmics/blob/online-version/Test%20data/gPro_gene_names.csv")),
+                )
+              }),
             fileInput("file_path_enri_gene", "Upload genes CSV file"),
+            textInput("text_path_enri_gene", "Enter gene id"),
             actionButton("submit_path_enri_gene", "Submit"),br(),br(),
             selectInput("loadStyleFile_path_gene", "Select Style: ", choices=styles),
             # selectInput(inputId = "overlap_min", label = "Minimum Overlap", choices = ""),
@@ -1251,7 +1254,7 @@ ui <- tagList(
             actionButton("addRandomGraphFromDataFramesButton_path_gene", "Add Random Graph"),br(),br(),
             actionButton("getSelectedNodes_path_gene", "Get Selected Nodes"), br(),br(),
             htmlOutput("selectedNodesDisplay_path_gene"),
-            width=2
+           
           ),
           mainPanel(
             h3("Pathways Enrichment"),
@@ -1301,6 +1304,7 @@ ui <- tagList(
             )
           }),
           fileInput("file_prot_expr", "Upload UniProt accession CSV file"),
+          textInput("text_prot_expr","Enter Uniprot accession numbers"),
           actionButton("submit_prot_expr", "Submit"),br(),br(),
           downloadButton("prot_expr_download", "Download as CSV")
         ),
@@ -1344,6 +1348,7 @@ ui <- tagList(
             )
           }),
           fileInput("file_gene", "Upload genes CSV file"),
+          textInput("text_gene","Enter gene ids"),
           actionButton("genemania_submit", "Submit")
         ),
         mainPanel(
@@ -1382,6 +1387,7 @@ ui <- tagList(
             )
           }),
           fileInput("file_uniprot", "Upload UniProt accession CSV file"),
+          textInput("text_uniprot", "Enter UniProt accession csv file"),
           actionButton("submit_uniprot", "Submit"),br(),br(),
           conditionalPanel(
             condition = "input.uniprot_tabs == 'Biological process'",
@@ -1462,6 +1468,7 @@ ui <- tagList(
               )
             }),
             fileInput("file_prot_Int", "Upload UniProt accession CSV file"),
+            textInput("text_prot_Int","Enter UniProt accession numbers"),
             actionButton("submit_prot_Int", "Submit"),br(),br(),
             selectInput("loadStyleFile", "Select Style: ", choices=styles),
             selectInput("doLayout", "Select Layout:",
@@ -1486,7 +1493,6 @@ ui <- tagList(
             actionButton("addRandomGraphFromDataFramesButton", "Add Random Graph"),br(),br(),
             actionButton("getSelectedNodes", "Get Selected Nodes"), br(),br(),
             htmlOutput("selectedNodesDisplay"),
-            width=2
           ),
           mainPanel(
             h3("Protein-Protein Interactions"),
@@ -1530,7 +1536,7 @@ ui <- tagList(
                          DT::dataTableOutput("prot_name_table")
                        ))
             ),
-            width=10
+           
           )
           #  mainPanel(cyjShinyOutput('cyjShiny', height=400),
           #           width=10,
@@ -1551,6 +1557,7 @@ ui <- tagList(
             )
           }),
           fileInput("file_prot_func", "Upload UniProt accession CSV file"),
+          textInput("text_prot_func","Enter UniProt accession numbers"),
           actionButton("submit_prot_func", "Submit"),br(),br(),
           downloadButton("prot_func_download", "Download as CSV")
         ),
@@ -1582,6 +1589,7 @@ ui <- tagList(
             )
           }),
           fileInput("file_prot_local", "Upload UniProt accession CSV file"),
+          textInput("text_prot_local","Enter UniProt accession numbers"),
           actionButton("submit_prot_local", "Submit"),br(),br(),
           downloadButton("prot_local_download", "Download as CSV")
         ),
@@ -1612,6 +1620,7 @@ ui <- tagList(
             )
           }),
           fileInput("file_prot_domain", "Upload UniProt accession CSV file"),
+          textInput("text_prot_domain","Enter UniProt accession numbers"),
           actionButton("submit_prot_domain", "Submit"),br(),br(),
           downloadButton("prot_domain_download", "Download as CSV")
         ),
@@ -1638,6 +1647,8 @@ ui <- tagList(
         "Protein properties",
         sidebarPanel(
           fileInput("file_prot_seq", "Upload UniProt accession CSV file"),
+          textInput("text_prot_seq","Enter UniProt accession numbers"),
+          actionButton("submit_prot_Seq", "Submit"),br(),br(),
           shinyjs::hidden(downloadButton('downloadData', 'Download Sequence FASTA')),
           
         ),
@@ -1712,6 +1723,8 @@ ui <- tagList(
         "Evolutionary Analysis",
         sidebarPanel(
           fileInput("file_prot_seq_evol", "Upload UniProt accession CSV file"),
+          textInput("text_prot_seq_evol","Enter UniProt accession numbers"),
+          actionButton("submit_prot_seq_evol","Submit")
           
         ),
         mainPanel(
@@ -1769,7 +1782,8 @@ ui <- tagList(
         "Pathological Analysis",
         sidebarPanel(
           fileInput("file_prot_seq_Patho", "Upload UniProt accession CSV file"),
-          
+          textInput("text_prot_seq_Patho","Enter UniProt accession numbers"),
+          actionButton("submit_prot_seq_Patho","Submit")
         ),
         mainPanel(
           h3("Protein pathological analysis"),
@@ -1819,6 +1833,7 @@ ui <- tagList(
             )
           }),
           fileInput("file_complex_prot", "Upload UniProt accession CSV file"),
+          textInput("text_complex_prot","Enter UniProt accession numbers"),
           actionButton("submit_complex_prot", "Submit"),br(),br(),
           downloadButton("complex_download_prot", "Download as CSV")
         ),
@@ -1852,6 +1867,7 @@ ui <- tagList(
               )
             }),
             fileInput("file_path_enri_prot", "Upload genes CSV file"),
+            textInput("text_path_enri_prot", "Enter gene id"),
             actionButton("submit_path_enri_prot", "Submit"),br(),br(),
             selectInput("loadStyleFile_path_prot", "Select Style: ", choices=styles),
             # selectInput(inputId = "overlap_min", label = "Minimum Overlap", choices = ""),
@@ -1877,8 +1893,7 @@ ui <- tagList(
             actionButton("removeGraphButton_path_prot", "Remove Graph"), br(),br(),
             actionButton("addRandomGraphFromDataFramesButton_path_prot", "Add Random Graph"),br(),br(),
             actionButton("getSelectedNodes_path_prot", "Get Selected Nodes"), br(),br(),
-            htmlOutput("selectedNodesDisplay_path_prot"),
-            width=2
+            htmlOutput("selectedNodesDisplay_path_prot")
           ),
           mainPanel(
             h3("Pathways Enrichment"),
@@ -2171,7 +2186,7 @@ server <- function(input, output, session) {
       write.csv(micro_meta_data, file, row.names = FALSE)
     }
   )
-  
+
   
   ####################################################################
   
@@ -5035,9 +5050,10 @@ server <- function(input, output, session) {
   
   df_complex <- reactive({
     print("running...")
-    if (is.null(input$file_complex_prot)) {
+    if (is.null(input$file_complex_prot)&& is.null(input$text_complex_prot)) {
       return(NULL)
     }
+    else if(!is.null(input$file_complex_prot)){
     parts <- strsplit(input$file_complex_prot$datapath, ".", fixed = TRUE)
     type <- parts[[1]][length(parts[[1]])]
     if (type != "csv") {
@@ -5051,6 +5067,19 @@ server <- function(input, output, session) {
     Accessions <- read.csv(input$file_complex_prot$datapath)
     Accessions <- na.omit(Accessions)
     Accessions <- Accessions[!duplicated(Accessions[, 1]), ]
+    }
+    else{
+      Acessions<-strsplit(input$text_complex_prot," ")
+      Accessions <- data.frame(Acessions[[1]][1])
+      for (x in 2:length(Acessions[[1]])) {
+        Accessions<-rbind(Accessions,Acessions[[1]][x])
+      }
+      
+      print(Accessions)
+      Accessions <- na.omit(Accessions)
+      Accessions <- Accessions[!duplicated(Accessions[, 1]), ]
+      
+    }
     
     return(Accessions)
     
@@ -5149,9 +5178,10 @@ server <- function(input, output, session) {
   
   df_prot_func <- reactive({
     print("running...")
-    if (is.null(input$file_prot_func)) {
+    if (is.null(input$file_prot_func) && is.null(input$text_prot_func)) {
       return(NULL)
     }
+    else if(!is.null(input$file_prot_func)){
     parts <- strsplit(input$file_prot_func$datapath, ".", fixed = TRUE)
     type <- parts[[1]][length(parts[[1]])]
     if (type != "csv") {
@@ -5165,7 +5195,19 @@ server <- function(input, output, session) {
     Accessions <- read.csv(input$file_prot_func$datapath)
     Accessions <- na.omit(Accessions)
     Accessions <- Accessions[!duplicated(Accessions[, 1]), ]
-    
+    }
+    else{
+      Acessions<-strsplit(input$text_prot_func," ")
+      Accessions <- data.frame(Acessions[[1]][1])
+      for (x in 2:length(Acessions[[1]])) {
+        Accessions<-rbind(Accessions,Acessions[[1]][x])
+      }
+      
+      print(Accessions)
+      Accessions <- na.omit(Accessions)
+      Accessions <- Accessions[!duplicated(Accessions[, 1]), ]
+      
+    }
     return(Accessions)
     
   })
@@ -5245,9 +5287,9 @@ server <- function(input, output, session) {
   
   df_prot_expr <- reactive({
     print("running...")
-    if (is.null(input$file_prot_expr)) {
+    if (is.null(input$file_prot_expr)&& is.null(input$text_prot_expr)) {
       return(NULL)
-    }
+    }else if(!is.null(input$file_prot_expr)){
     parts <- strsplit(input$file_prot_expr$datapath, ".", fixed = TRUE)
     type <- parts[[1]][length(parts[[1]])]
     if (type != "csv") {
@@ -5261,6 +5303,20 @@ server <- function(input, output, session) {
     Accessions <- read.csv(input$file_prot_expr$datapath)
     Accessions <- na.omit(Accessions)
     Accessions <- Accessions[!duplicated(Accessions[, 1]), ]
+    }else{
+      Acessions<-strsplit(input$text_prot_expr," ")
+      print(Acessions)
+      Accessions <- data.frame(Acessions[[1]][1])
+      for (x in 2:length(Acessions[[1]])) {
+        print(x)
+        Accessions<-rbind(Accessions,Acessions[[1]][x])
+      }
+      
+      print(Accessions)
+      Accessions <- na.omit(Accessions)
+      Accessions <- Accessions[!duplicated(Accessions[, 1]), ]
+      
+    }
     
     return(Accessions)
     
@@ -5342,9 +5398,10 @@ server <- function(input, output, session) {
   
   df_prot_local <- reactive({
     print("running...")
-    if (is.null(input$file_prot_local)) {
+    if (is.null(input$file_prot_local) && is.null(input$text_prot_local)) {
       return(NULL)
     }
+    else if(!is.null(input$file_prot_local)){
     parts <- strsplit(input$file_prot_local$datapath, ".", fixed = TRUE)
     type <- parts[[1]][length(parts[[1]])]
     if (type != "csv") {
@@ -5358,7 +5415,19 @@ server <- function(input, output, session) {
     Accessions <- read.csv(input$file_prot_local$datapath)
     Accessions <- na.omit(Accessions)
     Accessions <- Accessions[!duplicated(Accessions[, 1]), ]
-    
+    }
+    else{
+      Acessions<-strsplit(input$text_prot_local," ")
+      Accessions <- data.frame(Acessions[[1]][1])
+      for (x in 2:length(Acessions[[1]])) {
+        Accessions<-rbind(Accessions,Acessions[[1]][x])
+      }
+      
+      print(Accessions)
+      Accessions <- na.omit(Accessions)
+      Accessions <- Accessions[!duplicated(Accessions[, 1]), ]
+      
+    }
     return(Accessions)
     
   })
@@ -5438,9 +5507,10 @@ server <- function(input, output, session) {
   
   df_prot_domain <- reactive({
     print("running...")
-    if (is.null(input$file_prot_domain)) {
+    if (is.null(input$file_prot_domain)&& is.null(input$text_prot_domain)) {
       return(NULL)
     }
+    else if(!is.null(input$file_prot_domain)){
     parts <- strsplit(input$file_prot_domain$datapath, ".", fixed = TRUE)
     type <- parts[[1]][length(parts[[1]])]
     if (type != "csv") {
@@ -5454,7 +5524,19 @@ server <- function(input, output, session) {
     Accessions <- read.csv(input$file_prot_domain$datapath)
     Accessions <- na.omit(Accessions)
     Accessions <- Accessions[!duplicated(Accessions[, 1]), ]
-    
+    }
+    else{
+      Acessions<-strsplit(input$text_prot_domain," ")
+      Accessions <- data.frame(Acessions[[1]][1])
+      for (x in 2:length(Acessions[[1]])) {
+        Accessions<-rbind(Accessions,Acessions[[1]][x])
+      }
+      
+      print(Accessions)
+      Accessions <- na.omit(Accessions)
+      Accessions <- Accessions[!duplicated(Accessions[, 1]), ]
+      
+    }
     return(Accessions)
     
   })
@@ -5538,33 +5620,50 @@ server <- function(input, output, session) {
   
   df_path_enri_gene <- reactive({
     print("running pathway gene...")
-    if (is.null(input$file_path_enri_gene)) {
+    if (is.null(input$file_path_enri_gene) && is.null(input$text_path_enri_gene) ) {
       return(NULL)
+    }else if(!is.null(input$file_path_enri_gene)){
+      parts <- strsplit(input$file_path_enri_gene$datapath, ".", fixed = TRUE)
+      type <- parts[[1]][length(parts[[1]])]
+      if (type != "csv") {
+        showModal(modalDialog(
+          title = "Error",
+          "Please input a csv file!"
+        ))
+        return(NULL)
+      }
+      
+      Accessions <- read.csv(input$file_path_enri_gene$datapath)
+      print(Accessions)
+      Accessions <- na.omit(Accessions)
+      Accessions <- Accessions[!duplicated(Accessions[, 1]), ]
     }
-    parts <- strsplit(input$file_path_enri_gene$datapath, ".", fixed = TRUE)
-    type <- parts[[1]][length(parts[[1]])]
-    if (type != "csv") {
-      showModal(modalDialog(
-        title = "Error",
-        "Please input a csv file!"
-      ))
-      return(NULL)
+    else{
+     
+      Acessions<-strsplit(input$text_path_enri_gene," ")
+      print(Acessions)
+      Accessions <- data.frame(Acessions[[1]][1])
+      for (x in 2:length(Acessions[[1]])) {
+        print(x)
+        Accessions<-rbind(Accessions,Acessions[[1]][x])
+      }
+      
+      print(Accessions)
+      Accessions <- na.omit(Accessions)
+      Accessions <- Accessions[!duplicated(Accessions[, 1]), ]
+      
     }
     
-    Accessions <- read.csv(input$file_path_enri_gene$datapath)
-    Accessions <- na.omit(Accessions)
-    Accessions <- Accessions[!duplicated(Accessions[, 1]), ]
-    
-    return(Accessions)
-    
-  })
+      return(Accessions)
+      })
   
   
   df_path_enri_prot <- reactive({
     print("running...")
-    if (is.null(input$file_path_enri_prot)) {
+    if (is.null(input$file_path_enri_prot)&& is.null(input$text_path_enri_prot)) {
       return(NULL)
     }
+    else if(!is.null(input$file_path_enri_prot)){
     parts <- strsplit(input$file_path_enri_prot$datapath, ".", fixed = TRUE)
     type <- parts[[1]][length(parts[[1]])]
     if (type != "csv") {
@@ -5576,9 +5675,25 @@ server <- function(input, output, session) {
     }
     
     Accessions <- read.csv(input$file_path_enri_prot$datapath)
+    print(Accessions)
     Accessions <- na.omit(Accessions)
     Accessions <- Accessions[!duplicated(Accessions[, 1]), ]
-    
+    }
+    else{
+      print("In else")
+      Acessions<-strsplit(input$text_path_enri_prot," ")
+      print(Acessions)
+      Accessions <- data.frame(Acessions[[1]][1])
+      for (x in 2:length(Acessions[[1]])) {
+        print(x)
+        Accessions<-rbind(Accessions,Acessions[[1]][x])
+      }
+      
+      print(Accessions)
+      Accessions <- na.omit(Accessions)
+      Accessions <- Accessions[!duplicated(Accessions[, 1]), ]
+      
+    }
     return(Accessions)
     
   })
@@ -5995,25 +6110,37 @@ server <- function(input, output, session) {
   
   df_uniprot <- reactive({
     print("running")
-    if (is.null(input$file_uniprot)) {
+    if (is.null(input$file_uniprot) && is.null(input$text_uniprot)) {
       return(NULL)
     }
-    parts <- strsplit(input$file_uniprot$datapath, ".", fixed = TRUE)
-    type <- parts[[1]][length(parts[[1]])]
-    if (type != "csv") {
-      showModal(modalDialog(
-        title = "Error",
-        "Please input a csv file!"
-      ))
-      return(NULL)
-    }
+   else if(!is.null(input$file_uniprot)){
+     parts <- strsplit(input$file_uniprot$datapath, ".", fixed = TRUE)
+     type <- parts[[1]][length(parts[[1]])]
+     if (type != "csv") {
+       showModal(modalDialog(
+         title = "Error",
+         "Please input a csv file!"
+       ))
+       return(NULL)
+     }
+     
+     Accessions <- read.csv(input$file_uniprot$datapath)
+     Accessions <- na.omit(Accessions)[,1]
+     Accessions <- unique(Accessions)
+     Accessions <- trimws(Accessions)
+     print(Accessions)
+   }else{
+     Acessions<-strsplit(input$text_uniprot," ")
+     Accessions <- data.frame(Acessions[[1]][1])
+     for (x in 2:length(Acessions[[1]])) {
+       Accessions<-rbind(Accessions,Acessions[[1]][x])
+     }
+     
+     print(Accessions)
+     Accessions <- na.omit(Accessions)
+     Accessions <- Accessions[!duplicated(Accessions[, 1]), ]
     
-    Accessions <- read.csv(input$file_uniprot$datapath)
-    Accessions <- na.omit(Accessions)[,1]
-    Accessions <- unique(Accessions)
-    Accessions <- trimws(Accessions)
-    print(Accessions)
-    
+   }
     return(Accessions)
     
   })
@@ -6021,6 +6148,7 @@ server <- function(input, output, session) {
   plotUniprot <-  eventReactive(input$submit_uniprot, {
     
     Accessions <- df_uniprot()
+    print(Accessions)
     hide("help_text_bio_pr")
     #print("Please Wait... Fetching Taxa Object. It may take a while")
     #TaxaObj <- GetNamesTaxa(Accessions)
@@ -6202,9 +6330,10 @@ server <- function(input, output, session) {
   
   df_prot_Int <- reactive({
     print("running")
-    if (is.null(input$file_prot_Int)) {
+    if (is.null(input$file_prot_Int)&& is.null(input$text_prot_Int)) {
       return(NULL)
     }
+    else if(!is.null(input$file_prot_Int)){
     parts <- strsplit(input$file_prot_Int$datapath, ".", fixed = TRUE)
     type <- parts[[1]][length(parts[[1]])]
     if (type != "csv") {
@@ -6218,6 +6347,17 @@ server <- function(input, output, session) {
     Accessions <- read.csv(input$file_prot_Int$datapath)
     Accessions <- na.omit(Accessions)
     Accessions <- Accessions[!duplicated(Accessions[, 1]), ]
+    }else{
+      Acessions<-strsplit(input$text_prot_Int," ")
+      Accessions <- data.frame(Acessions[[1]][1])
+      for (x in 2:length(Acessions[[1]])) {
+        Accessions<-rbind(Accessions,Acessions[[1]][x])
+      }
+      
+      print(Accessions)
+      Accessions <- na.omit(Accessions)
+      Accessions <- Accessions[!duplicated(Accessions[, 1]), ]
+    }
     
     return(Accessions)
     
@@ -6679,9 +6819,9 @@ server <- function(input, output, session) {
   
   df_genemania <- reactive({
     print("running")
-    if (is.null(input$file_gene)) {
+    if (is.null(input$file_gene)&&is.null(input$text_gene)) {
       return(NULL)
-    }
+    }else if(!is.null(input$file_gene)){
     parts <- strsplit(input$file_gene$datapath, ".", fixed = TRUE)
     type <- parts[[1]][length(parts[[1]])]
     if (type != "csv") {
@@ -6695,6 +6835,17 @@ server <- function(input, output, session) {
     gene_names <- read.csv(input$file_gene$datapath)
     gene_names <- na.omit(gene_names)
     gene_names <- gene_names[!duplicated(gene_names[, 1]), ]
+    }else{
+      gene_name<-strsplit(input$text_prot_Int," ")
+      gene_names <- data.frame(gene_name[[1]][1])
+      for (x in 2:length(gene_name[[1]])) {
+        gene_names<-rbind(gene_names,gene_name[[1]][x])
+      }
+      
+      print(gene_names)
+      gene_names <- na.omit(gene_names)
+      gene_names <- gene_names[!duplicated(gene_names[, 1]), ]
+    }
     
     return(gene_names)
     
@@ -6751,11 +6902,12 @@ server <- function(input, output, session) {
   ###################################
   ###################################
   Proteins <- NULL
-  df_prot_seq <- reactive({
+  df_prot_seq <- eventReactive(input$submit_prot_Seq, {
     print("running")
-    if (is.null(input$file_prot_seq)) {
+    if (is.null(input$file_prot_seq)&& is.null(input$text_prot_seq)) {
       return(NULL)
     }
+    else if(!is.null(input$file_prot_seq)){
     parts <- strsplit(input$file_prot_seq$datapath, ".", fixed = TRUE)
     type <- parts[[1]][length(parts[[1]])]
     if (type != "csv") {
@@ -6768,6 +6920,19 @@ server <- function(input, output, session) {
     
     protein_Id <- unique(as.character(na.omit(read.csv(input$file_prot_seq$datapath)[,1])))
     Proteins <<- protein_Id
+    }
+    else{
+      Acessions<-strsplit(input$text_prot_seq," ")
+      Proteins <- data.frame(Acessions[[1]][1])
+      for (x in 2:length(Acessions[[1]])) {
+        Proteins<-rbind(Proteins,Acessions[[1]][x])
+      }
+      
+      print(Proteins)
+      Proteins <- na.omit(Proteins)
+      Proteins <- Proteins[!duplicated(Proteins[, 1]), ]
+      
+    }
     
     shinyjs::show("downloadData")
     return(Proteins)
@@ -6777,16 +6942,43 @@ server <- function(input, output, session) {
   Seqdata <- NULL
   
   output$help_text_prot_seq <- renderUI({
-    HTML("<h3><b>This page retrieves the full protein sequences from <a href ='https://www.uniprot.org/'>UniProt.org</a> of a given set of UniProt accessions, Please upload accessions to start analysis.</b></h3>")
+    HTML("<br>
+    <br>
+      <center>
+        <p>
+          <b>This page retrieves the full protein sequences from <a href ='https://www.uniprot.org/'>UniProt.org</a> of a given set of UniProt accessions, Please upload accessions to start analysis.
+          </b>
+        </p>
+      </center>
+    ")
   })
   
   output$help_text_prot_seq_evol <- renderUI({
-    HTML("<h3><b>This page performs Evolutionary analysis of protein sequences retrieved from <a href ='https://www.uniprot.org/'>UniProt.org</a>, Please upload accessions to start analysis.</b></h3>")
+    HTML("<br>
+    <br>
+      <center>
+        <p>
+          <b>
+          This page performs Evolutionary analysis of protein sequences retrieved from <a href ='https://www.uniprot.org/'>UniProt.org</a>, Please upload accessions to start analysis.
+          </b>
+        </p>
+      </center>
+    ")
   })
   
   output$help_text_prot_seq_Patho <- renderUI({
-    HTML("<h3><b>This page retrieves protein's pathological information from <a href ='https://www.uniprot.org/'>UniProt.org</a> of a given set of UniProt accessions, Please upload accessions to start analysis.</b></h3>")
-  })
+    HTML("
+    <br>
+    <br>
+      <center>
+        <p>
+          <b>
+          This page retrieves protein's pathological information from <a href ='https://www.uniprot.org/'>UniProt.org</a> of a given set of UniProt accessions, Please upload accessions to start analysis.
+          </b>
+        </p>
+      </center>
+    ")
+    })
   output$SequencePlot <- renderPlot(
     {
       if (!is.null(df_prot_seq()))
@@ -6880,11 +7072,12 @@ server <- function(input, output, session) {
   ##################################
   ######## protein revolution ######
   
-  df_prot_seq_evol <- reactive({
+  df_prot_seq_evol <- eventReactive(input$submit_prot_seq_evol,{
     print("running")
-    if (is.null(input$file_prot_seq_evol)) {
+    if (is.null(input$file_prot_seq_evol)&& is.null(input$text_prot_seq_evol)) {
       return(NULL)
     }
+    else if(!is.null(input$file_prot_seq_evol)){
     parts <- strsplit(input$file_prot_seq_evol$datapath, ".", fixed = TRUE)
     type <- parts[[1]][length(parts[[1]])]
     if (type != "csv") {
@@ -6897,7 +7090,19 @@ server <- function(input, output, session) {
     
     protein_Id <- unique(as.character(na.omit(read.csv(input$file_prot_seq_evol$datapath)[,1])))
     Proteins <- protein_Id
-    
+    }
+    else{
+      Acessions<-strsplit(input$text_prot_seq_evol," ")
+      Proteins <- data.frame(Acessions[[1]][1])
+      for (x in 2:length(Acessions[[1]])) {
+        Proteins<-rbind(Proteins,Acessions[[1]][x])
+      }
+      
+      print(Proteins)
+      Proteins <- na.omit(Proteins)
+      Proteins <- Proteins[!duplicated(Proteins[, 1]), ]
+      
+    }
     return(Proteins)
     
   })
@@ -6948,11 +7153,12 @@ server <- function(input, output, session) {
   ###################################
   
   #Pathogens
-  df_prot_seq_Patho <- reactive({
+  df_prot_seq_Patho <- eventReactive(input$submit_prot_seq_Patho,{
     print("running")
-    if (is.null(input$file_prot_seq_Patho)) {
+    if (is.null(input$file_prot_seq_Patho)&& is.null(input$text_prot_seq_Patho)) {
       return(NULL)
     }
+    else if(!is.null(input$file_prot_seq_Patho)){
     parts <- strsplit(input$file_prot_seq_Patho$datapath, ".", fixed = TRUE)
     type <- parts[[1]][length(parts[[1]])]
     if (type != "csv") {
@@ -6965,6 +7171,19 @@ server <- function(input, output, session) {
     
     protein_Id <- unique(as.character(na.omit(read.csv(input$file_prot_seq_Patho$datapath)[,1])))
     Proteins <- protein_Id
+    }
+    else{
+      Acessions<-strsplit(input$text_prot_seq_Patho," ")
+      Proteins <- data.frame(Acessions[[1]][1])
+      for (x in 2:length(Acessions[[1]])) {
+        Proteins<-rbind(Proteins,Acessions[[1]][x])
+      }
+      
+      print(Proteins)
+      Proteins <- na.omit(Proteins)
+      Proteins <- Proteins[!duplicated(Proteins[, 1]), ]
+      
+    }
     
     return(Proteins)
     
